@@ -19,7 +19,7 @@ class Test_001_Login:
         self.driver.get(Test_001_Login.baseUrl)
         actual_title = self.driver.title
         self.driver.close()
-        if actual_title == "Your store, Login":
+        if actual_title == "Your store. Login":
             assert TRUE
         else:
             assert False

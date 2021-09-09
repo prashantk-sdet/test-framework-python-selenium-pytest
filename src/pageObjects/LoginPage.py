@@ -10,7 +10,7 @@ class LoginPage(object):
     '''
     textbox_username_id = "Email"
     testbox_password_id = "Password"
-    button_login_xpath = "//input[@class='button-1 login-button']"
+    button_login_xpath = "//button[@class='button-1 login-button']"
     link_logout_linktext = "Logout"
     
     def __init__(self,driver):
