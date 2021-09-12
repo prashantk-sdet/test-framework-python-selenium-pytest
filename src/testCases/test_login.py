@@ -8,23 +8,32 @@ from selenium import webdriver
 from pageObjects.LoginPage import LoginPage
 from pickle import TRUE
 from testCases.conftest import setup
+from utilities.readProperties import ReadConfig
+from utilities.customLogger import LogGen
 
 class Test_001_Login:
-    baseUrl = "https://admin-demo.nopcommerce.com"
-    username = "admin@yourstore.com"
-    password = "admin"
+    baseUrl = ReadConfig.getConfigValue("baseUrl")
+    username = ReadConfig.getConfigValue("username")
+    password = ReadConfig.getConfigValue("password")
+    logger = LogGen.loggen()
     
+    @pytest.mark.sanity
     def test_homePageTitle(self, setup):
+        self.logger.info("Starting test_homePageTitle")
         self.driver = setup
         self.driver.get(Test_001_Login.baseUrl)
         actual_title = self.driver.title
-        self.driver.close()
         if actual_title == "Your store. Login":
             assert TRUE
+            self.driver.close()
         else:
+            self.driver.save_screenshot("screenshots/test_homePageTitle.png")
+            self.driver.close()
             assert False
     
+    @pytest.mark.regression
     def test_Login(self, setup):
+        self.logger.info("Starting test_Login")
         self.driver = setup
         self.driver.get(Test_001_Login.baseUrl)
         self.loginPage = LoginPage(self.driver)
